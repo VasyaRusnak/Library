@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Library } from '../src/library';
-import { Book } from '../src/models';
+import { Library } from '../src/library'; // ../src/library.ts
+import { Book } from '../src/models'; // ../src/models.ts
 
 describe('Library', () => {
   let library: Library<Book>;

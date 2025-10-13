@@ -62,18 +62,14 @@ function render() {
 function bind() {
   // Додавання книги
   (document.getElementById('add-book') as HTMLButtonElement).onclick = () => {
-    const title = (document.getElementById('book-title') as HTMLInputElement)
-      .value;
-    const author = (document.getElementById('book-author') as HTMLInputElement)
-      .value;
-    const year = (document.getElementById('book-year') as HTMLInputElement)
-      .value;
+    const title = (document.getElementById('book-title') as HTMLInputElement).value;
+    const author = (document.getElementById('book-author') as HTMLInputElement).value;
+    const year = (document.getElementById('book-year') as HTMLInputElement).value;
 
     const errors: string[] = [];
     if (!Validators.required(title)) errors.push("Назва обов'язкова");
     if (!Validators.required(author)) errors.push("Автор обов'язковий");
-    if (!Validators.year(year))
-      errors.push('Рік повинен бути у форматі: 4 цифри');
+    if (!Validators.year(year)) errors.push('Рік повинен бути у форматі: 4 цифри');
 
     if (errors.length) {
       showModal('Помилка', errors.join('<br>'));
@@ -94,10 +90,8 @@ function bind() {
 
   (document.getElementById('add-user') as HTMLButtonElement).onclick = () => {
     const id = (document.getElementById('user-id') as HTMLInputElement).value;
-    const name = (document.getElementById('user-name') as HTMLInputElement)
-      .value;
-    const email = (document.getElementById('user-email') as HTMLInputElement)
-      .value;
+    const name = (document.getElementById('user-name') as HTMLInputElement).value;
+    const email = (document.getElementById('user-email') as HTMLInputElement).value;
 
     const errors: string[] = [];
     if (!Validators.required(id)) errors.push("ID обов'язковий");
@@ -132,8 +126,7 @@ function refreshLists() {
   bl.innerHTML = '';
   booksLib.list().forEach((b) => {
     const li = document.createElement('li');
-    li.className =
-      'list-group-item d-flex justify-content-between align-items-center';
+    li.className = 'list-group-item d-flex justify-content-between align-items-center';
     li.innerHTML = `
       <div>
         <strong>${b.title}</strong> — ${b.author} (${b.year}) ${b.isBorrowed ? '<span class="badge bg-warning ms-2">Позичена</span>' : ''}
@@ -150,8 +143,7 @@ function refreshLists() {
   ul.innerHTML = '';
   usersLib.list().forEach((u) => {
     const li = document.createElement('li');
-    li.className =
-      'list-group-item d-flex justify-content-between align-items-center';
+    li.className = 'list-group-item d-flex justify-content-between align-items-center';
     li.innerHTML = `
       <div>
         <strong>${u.name}</strong> (ID: ${u.id}) — ${u.email} <br>
@@ -170,9 +162,7 @@ function refreshLists() {
       const id = (ev.currentTarget as HTMLElement).getAttribute('data-id')!;
       const book = booksLib.findById(id)!;
       if (!book.isBorrowed) {
-        const userId = prompt(
-          'Введіть ID користувача, який позичає книгу (лише цифри):',
-        );
+        const userId = prompt('Введіть ID користувача, який позичає книгу (лише цифри):');
         if (!userId) return;
         const res = loan.borrow(userId.trim(), id);
         showModal(res.ok ? 'Успіх' : 'Помилка', res.message);
@@ -206,8 +196,7 @@ function refreshLists() {
   document.querySelectorAll('.delete-user').forEach((b) =>
     b.addEventListener('click', (ev) => {
       const id = (ev.currentTarget as HTMLElement).getAttribute('data-id')!;
-      if (!confirm('Видалити користувача? Всі його позичання будуть зняті.'))
-        return;
+      if (!confirm('Видалити користувача? Всі його позичання будуть зняті.')) return;
       const user = usersLib.findById(id);
       if (user) {
         user.borrowedIds.forEach((bookId) => {
