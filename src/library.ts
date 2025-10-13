@@ -13,7 +13,7 @@ export class Library<T extends { id: string }> {
     return this.items.find((i) => i.id === id);
   }
   list(): T[] {
-    return [...this.items]; // test lint-staged
+    return [...this.items]; // test lint-stagel
   }
   clear() {
     this.items = [];
