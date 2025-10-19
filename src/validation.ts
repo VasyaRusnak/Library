@@ -5,7 +5,7 @@ export const Validators = {
   numeric(value: string) {
     return /^\d+$/.test(value);
   },
-рр
+
   year(value: string) {
     return /^\d{4}$/.test(value);
   },
