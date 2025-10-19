@@ -1,6 +1,5 @@
 import { Library } from './library';
-import { Book } from './models';
-import { User } from './models';
+import { Book, User } from './models';
 
 export class StorageService {
   constructor(private key = 'library_app_v1') {}
@@ -13,16 +12,16 @@ export class StorageService {
     const raw = localStorage.getItem(this.key);
     if (!raw) return null;
     try {
-      const parsed = JSON.parse(raw);
-      return {
-        books: (parsed.books || []).map(
-          (b: any) => new Book(b.id, b.title, b.author, b.year, !!b.isBorrowed),
-        ),
-        users: (parsed.users || []).map(
-          (u: any) => new User(u.id, u.name, u.email, u.borrowedIds || []),
-        ),
+      const parsed = JSON.parse(raw) as {
+        books: { id: string; title: string; author: string; year: number; isBorrowed: boolean }[];
+        users: { id: string; name: string; email: string; borrowedIds: string[] }[];
       };
-    } catch (e) {
+
+      return {
+        books: parsed.books.map((b) => new Book(b.id, b.title, b.author, b.year, !!b.isBorrowed)),
+        users: parsed.users.map((u) => new User(u.id, u.name, u.email, u.borrowedIds || [])),
+      };
+    } catch {
       return null;
     }
   }

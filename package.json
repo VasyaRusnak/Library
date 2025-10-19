@@ -1,21 +1,14 @@
 {
-  "name": "lab-app",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "test": "mocha --require ts-node/register --loader ts-node/esm tests/**/*.ts",
-    "prepare": "husky install"
-  },
   "lint-staged": {
-    "*.ts": [
+    "src/**/*.ts": [
+      "eslint --fix",
       "prettier --write"
     ]
   },
+  "name": "lab-app",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "private": true,
   "devDependencies": {
     "@types/chai": "^5.2.2",
     "@types/mocha": "^10.0.10",
@@ -42,6 +35,12 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.8"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "test": "mocha -r ts-node/register tests/**/*.ts",
+    "prepare": "husky install"
   },
   "main": "webpack.config.js",
   "keywords": [],

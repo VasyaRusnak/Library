@@ -1,14 +1,14 @@
-export namespace Validators {
-  export function required(value: string) {
+export const Validators = {
+  required(value: string) {
     return value.trim().length > 0;
-  }
-  export function numeric(value: string) {
+  },
+  numeric(value: string) {
     return /^\d+$/.test(value);
-  }
-  export function year(value: string) {
+  },
+  year(value: string) {
     return /^\d{4}$/.test(value);
-  }
-  export function email(value: string) {
+  },
+  email(value: string) {
     return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value);
-  }
-}
+  },
+};

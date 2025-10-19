@@ -1,32 +1,27 @@
-// eslint.config.cjs
-import type { FlatESLintConfig } from 'eslint';
+// Flat config for ESLint v9 — CommonJS
+const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const tsParser = require('@typescript-eslint/parser');
+const prettierPlugin = require('eslint-plugin-prettier');
 
-const config: FlatESLintConfig = {
-  root: true,
-  languageOptions: {
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
+module.exports = [
+  {
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
       ecmaVersion: 2021,
       sourceType: 'module',
     },
-  },
-  env: {
-    browser: true,
-    node: true,
-    es2021: true,
-  },
-  plugins: {
-    '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
-    prettier: require('eslint-plugin-prettier'),
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
-  rules: {
-    'prettier/prettier': 'error',
-  },
-};
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+      prettier: prettierPlugin,
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
 
-export default config;
+      ...tsPlugin.configs.recommended.rules,
+
+      // інтеграція з Prettier (помилка якщо не відформатовано)
+      'prettier/prettier': 'error',
+    },
+  },
+];
